@@ -18,8 +18,8 @@ export class AuthController {
     return instanceToPlain(await this.userService.createUser(createUserDto));
   }
 
-  @Post('login')
   @UseGuards(LocalAuthgaurd)
+  @Post('login')
   login() {}
 
   @Get('status')
