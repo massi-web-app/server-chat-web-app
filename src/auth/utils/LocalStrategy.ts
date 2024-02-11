@@ -1,11 +1,11 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, HttpException, HttpStatus } from "@nestjs/common";
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { Services } from 'src/utils/constants';
 import { IAuthService } from '../auth';
 
 @Injectable()
-export class LocalSterategy extends PassportStrategy(Strategy) {
+export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(
     @Inject(Services.AUTH) private readonly authService: IAuthService,
   ) {
@@ -13,9 +13,6 @@ export class LocalSterategy extends PassportStrategy(Strategy) {
   }
 
   async validate(email: string, password: string) {
-    console.log(email, password);
-    const result = this.authService.validateUser({ email, password });
-
-    return true;
+    return this.authService.validateUser({ email, password });
   }
 }

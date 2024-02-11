@@ -2,15 +2,17 @@ import "reflect-metadata";
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
+import { TypeormStore } from "connect-typeorm/out";
+import {  Session } from "./utils/typeorm";
 import * as session from "express-session";
 import * as passport from "passport";
-import { TypeormStore } from "connect-typeorm/out";
-import { AppDataSource, Session } from "./utils/typeorm";
+import { getRepository } from "typeorm";
+
 
 async function bootstrap() {
   const { PORT, COOKIE_SECRET } = process.env;
   const app = await NestFactory.create(AppModule);
-  const sessionRepository = AppDataSource.getRepository(Session);
+  const sessionRepository = getRepository(Session)
   app.setGlobalPrefix("api");
   app.useGlobalPipes(new ValidationPipe());
 

@@ -1,5 +1,9 @@
 import { ISession } from "connect-typeorm/out";
-import { Column, DeleteDateColumn, Index, PrimaryColumn } from "typeorm";
+import { Column, DeleteDateColumn, Index, PrimaryColumn,Entity } from "typeorm";
+
+
+
+@Entity({name:'sessions'})
 export class Session implements ISession {
   @Index()
   @Column("bigint")
