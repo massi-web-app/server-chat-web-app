@@ -23,7 +23,7 @@ export class AuthController {
   @Post("login")
   @UseGuards(LocalAuthGuard)
   login(@Res() res: Response) {
-    return res.send(200);
+    return res.send().status(HttpStatus.OK);
   }
 
   @Get("status")

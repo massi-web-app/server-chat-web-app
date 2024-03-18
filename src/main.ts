@@ -22,8 +22,9 @@ async function bootstrap() {
       secret: COOKIE_SECRET,
       saveUninitialized: false,
       resave: false,
+      name: "CHAT_APP_SESSION_ID",
       cookie: {
-        maxAge: 86400000 //cookie expire 1 day later
+        maxAge: 86400000, //cookie expire 1 day later
       },
       store: new TypeormStore().connect(sessionRepository)
     })
@@ -31,6 +32,7 @@ async function bootstrap() {
 
   app.use(passport.initialize());
   app.use(passport.session());
+
 
   try {
     await app.listen(PORT, () => {

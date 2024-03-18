@@ -5,6 +5,7 @@ import { AuthModule } from "./auth/auth.module";
 import { UsersModule } from "./users/users.module";
 import { PassportModule } from "@nestjs/passport";
 import { Session, User } from "./utils/typeorm";
+import { ConversationsModule } from './conversation/conversations.module';
 
 
 @Module({
@@ -23,6 +24,7 @@ import { Session, User } from "./utils/typeorm";
     }),
     AuthModule,
     UsersModule,
+    ConversationsModule,
   ],
   controllers: [],
   providers: [],
