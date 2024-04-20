@@ -7,7 +7,7 @@ export class CreateConversationDto{
 
   @IsNumber()
   @IsNotEmpty()
-  recipintId:number;
+  recipientId:number;
 
   @IsNotEmpty()
   @IsString()

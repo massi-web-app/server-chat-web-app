@@ -1,5 +1,6 @@
 import { CreateConversationParams } from "../utils/types";
+import { User } from "../utils/typeorm";
 
 export interface IConversationsService{
-  createConversation(conversationParams:CreateConversationParams):any
+  createConversation(user:User,conversationParams:CreateConversationParams):any
 }

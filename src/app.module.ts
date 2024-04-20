@@ -4,8 +4,9 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { AuthModule } from "./auth/auth.module";
 import { UsersModule } from "./users/users.module";
 import { PassportModule } from "@nestjs/passport";
-import { Session, User } from "./utils/typeorm";
 import { ConversationsModule } from './conversation/conversations.module';
+import { ParticipantsModule } from './participants/participants.module';
+import entities from "./utils/typeorm";
 
 
 @Module({
@@ -20,11 +21,12 @@ import { ConversationsModule } from './conversation/conversations.module';
       port:parseInt(process.env.MYSQL_DB_PORT),
       database: process.env.MYSQL_DB_NAME,
       synchronize: true,
-      entities: [User,Session],
+      entities,
     }),
     AuthModule,
     UsersModule,
     ConversationsModule,
+    ParticipantsModule,
   ],
   controllers: [],
   providers: [],
