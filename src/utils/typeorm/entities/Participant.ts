@@ -1,4 +1,4 @@
-import { Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Conversation } from "./Conversation";
 
 
