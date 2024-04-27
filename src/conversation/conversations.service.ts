@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
-import { IConversationsService } from "./conversation";
+import { IConversationsService } from "./conversations";
 import { Services } from "../utils/constants";
 import { CreateConversationParams } from "../utils/types";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -7,6 +7,7 @@ import { Conversation, Participant, User } from "../utils/typeorm";
 import { Repository } from "typeorm";
 import { IParticipantService } from "../participants/participants";
 import { IUserService } from "../users/user";
+import { of } from "rxjs";
 
 @Injectable()
 export class ConversationsService implements IConversationsService {
@@ -19,6 +20,12 @@ export class ConversationsService implements IConversationsService {
   ) {
 
   }
+
+
+  async  find(){
+    return this.participantService.findParticipantConversations();
+  }
+
 
   async createConversation(user: User, params: CreateConversationParams) {
     const userDB = await this.userService.findUser({ id: user.id });
@@ -36,7 +43,7 @@ export class ConversationsService implements IConversationsService {
     const recipient = await this.userService.findUser({ id: recipientId });
 
 
-    if (!recipient) throw new HttpException("Recipiant Not Found", HttpStatus.BAD_REQUEST);
+    if (!recipient) throw new HttpException("Recipient Not Conversation", HttpStatus.BAD_REQUEST);
     if (!recipient.participant) {
       await this.createParticipantAndSaveUser(recipient, recipientId);
     } else participants.push(recipient.participant);

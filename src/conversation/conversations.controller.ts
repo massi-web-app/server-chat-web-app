@@ -1,8 +1,8 @@
-import { Body, Controller, Inject, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Inject, Post, UseGuards } from "@nestjs/common";
 import { Routes, Services } from "../utils/constants";
 import { AuthenticateGuard } from "../auth/utils/Guards";
 import { CreateConversationDto } from "./dto/CreateConversation.dto";
-import { IConversationsService } from "./conversation";
+import { IConversationsService } from "./conversations";
 import { User } from "../utils/typeorm";
 import { AuthUser } from "../utils/decorators";
 import { IUserService } from "../users/user";
@@ -12,7 +12,7 @@ import { IUserService } from "../users/user";
 export class ConversationsController {
 
   constructor(
-    @Inject(Services.COVNERSATIONS) private readonly conversationService: IConversationsService,
+    @Inject(Services.CONVERSATIONS) private readonly conversationService: IConversationsService,
   ) {
   }
 
@@ -21,5 +21,10 @@ export class ConversationsController {
     return this.conversationService.createConversation(user,createConverastionPayload);
   }
 
+
+  @Get("/")
+  getConversations(){
+    return this.conversationService.find();
+  }
 
 }

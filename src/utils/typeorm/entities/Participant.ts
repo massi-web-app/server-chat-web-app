@@ -10,5 +10,4 @@ export class Participant {
   @ManyToMany(() => Conversation, (conversation) => conversation.participants)
   @JoinTable()
   conversations: Conversation[];
-
 }

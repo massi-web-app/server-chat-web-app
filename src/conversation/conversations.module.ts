@@ -11,7 +11,7 @@ import { UsersModule } from "../users/users.module";
   imports:[TypeOrmModule.forFeature([Conversation,Participant]),ParticipantsModule,UsersModule],
   controllers: [ConversationsController],
   providers: [{
-    provide: Services.COVNERSATIONS,
+    provide: Services.CONVERSATIONS,
     useClass: ConversationsService
   }]
 })
