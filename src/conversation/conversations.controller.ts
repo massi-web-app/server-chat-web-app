@@ -23,14 +23,15 @@ export class ConversationsController {
 
 
   @Get("/")
-  getConversations(@AuthUser() user: User) {
-    return this.conversationService.find(user.id);
+  async getConversations(@AuthUser() user: User) {
+    const participant = await this.conversationService.find(user.id);
+
+    return participant;
   }
 
 
   @Get(":id")
   async getConversationById(@Param("id") id: number) {
-    const conversation=await this.conversationService.findConversationById(id);
-    return conversation;
+    return await this.conversationService.findConversationById(id);
   }
 }

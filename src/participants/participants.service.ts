@@ -24,6 +24,9 @@ export class ParticipantsService implements IParticipantService{
     return this.participantRepository.createQueryBuilder("participant")
       .leftJoinAndSelect("participant.conversations","conversation")
       .where("participant.id = :id",{id})
+      .leftJoinAndSelect('conversation.participants','participants')
+      .leftJoin('participants.user','user')
+      .addSelect(['user.firstName','user.email','user.lastName','user.id'])
       .getOne();
   }
 }
