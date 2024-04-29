@@ -20,10 +20,10 @@ export class ParticipantsService implements IParticipantService{
     return this.participantRepository.save(participant);
   }
 
-  async findParticipantConversations(){
+  async findParticipantConversations(id:number){
     return this.participantRepository.createQueryBuilder("participant")
       .leftJoinAndSelect("participant.conversations","conversation")
-      .where("participant.id = :id",{id:1})
+      .where("participant.id = :id",{id})
       .getOne();
   }
 }

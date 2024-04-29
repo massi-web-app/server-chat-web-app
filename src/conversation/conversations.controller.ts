@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Inject, Param, Post, UseGuards } from "@nestjs/common";
 import { Routes, Services } from "../utils/constants";
 import { AuthenticateGuard } from "../auth/utils/Guards";
 import { CreateConversationDto } from "./dto/CreateConversation.dto";
@@ -12,19 +12,25 @@ import { IUserService } from "../users/user";
 export class ConversationsController {
 
   constructor(
-    @Inject(Services.CONVERSATIONS) private readonly conversationService: IConversationsService,
+    @Inject(Services.CONVERSATIONS) private readonly conversationService: IConversationsService
   ) {
   }
 
   @Post("/")
   async createConversation(@AuthUser() user: User, @Body() createConverastionPayload: CreateConversationDto) {
-    return this.conversationService.createConversation(user,createConverastionPayload);
+    return this.conversationService.createConversation(user, createConverastionPayload);
   }
 
 
   @Get("/")
-  getConversations(){
-    return this.conversationService.find();
+  getConversations(@AuthUser() user: User) {
+    return this.conversationService.find(user.id);
   }
 
+
+  @Get(":id")
+  async getConversationById(@Param("id") id: number) {
+    const conversation=await this.conversationService.findConversationById(id);
+    return conversation;
+  }
 }

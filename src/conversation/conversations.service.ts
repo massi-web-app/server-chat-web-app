@@ -22,10 +22,16 @@ export class ConversationsService implements IConversationsService {
   }
 
 
-  async  find(){
-    return this.participantService.findParticipantConversations();
+  async find(id: number) {
+    return this.participantService.findParticipantConversations(id);
   }
 
+
+  async findConversationById(id: number) {
+    return this.conversationRepository.findOne(id,{
+      relations:['participants','participants.user']
+    });
+  }
 
   async createConversation(user: User, params: CreateConversationParams) {
     const userDB = await this.userService.findUser({ id: user.id });
@@ -45,7 +51,8 @@ export class ConversationsService implements IConversationsService {
 
     if (!recipient) throw new HttpException("Recipient Not Conversation", HttpStatus.BAD_REQUEST);
     if (!recipient.participant) {
-      await this.createParticipantAndSaveUser(recipient, recipientId);
+      const participant=await this.createParticipantAndSaveUser(recipient, recipientId);
+      participants.push(participant);
     } else participants.push(recipient.participant);
 
     const conversation = this.conversationRepository.create({ participants });

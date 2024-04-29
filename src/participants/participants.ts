@@ -6,5 +6,5 @@ export interface IParticipantService{
 
   createParticipant(params:CreateParticipantParams):Promise<Participant>;
 
-  findParticipantConversations();
+  findParticipantConversations(id:number  ):any;
 }
