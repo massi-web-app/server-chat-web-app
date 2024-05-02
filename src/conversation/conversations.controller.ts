@@ -24,9 +24,14 @@ export class ConversationsController {
 
   @Get("/")
   async getConversations(@AuthUser() user: User) {
-    const participant = await this.conversationService.find(user.id);
-
-    return participant;
+    const { id } = user.participant;
+    const participant = await this.conversationService.find(id);
+    return participant.conversations.filter((conversation) => (
+      {
+        ...conversation,
+        recipient: conversation.participants.find((participant) => participant.user.id !== user.id)
+      }
+    ));
   }
 
 

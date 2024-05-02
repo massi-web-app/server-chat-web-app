@@ -21,12 +21,14 @@ export class ParticipantsService implements IParticipantService{
   }
 
   async findParticipantConversations(id:number){
-    return this.participantRepository.createQueryBuilder("participant")
+    return this.participantRepository
+      .createQueryBuilder("participant")
       .leftJoinAndSelect("participant.conversations","conversation")
       .where("participant.id = :id",{id})
       .leftJoinAndSelect('conversation.participants','participants')
       .leftJoin('participants.user','user')
       .addSelect(['user.firstName','user.email','user.lastName','user.id'])
+      .limit(2)
       .getOne();
   }
 }
