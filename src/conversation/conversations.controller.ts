@@ -17,21 +17,14 @@ export class ConversationsController {
   }
 
   @Post("/")
-  async createConversation(@AuthUser() user: User, @Body() createConverastionPayload: CreateConversationDto) {
-    return this.conversationService.createConversation(user, createConverastionPayload);
+  async createConversation(@AuthUser() user: User, @Body() createConversationPayload: CreateConversationDto) {
+    return this.conversationService.createConversation(user, createConversationPayload);
   }
 
 
   @Get("/")
-  async getConversations(@AuthUser() user: User) {
-    const { id } = user.participant;
-    const participant = await this.conversationService.find(id);
-    return participant.conversations.filter((conversation) => (
-      {
-        ...conversation,
-        recipient: conversation.participants.find((participant) => participant.user.id !== user.id)
-      }
-    ));
+  async getConversations(@AuthUser() {id}: User) {
+    return this.conversationService.getConversations(id);
   }
 
 

@@ -20,8 +20,8 @@ export class AuthController {
     return instanceToPlain(await this.userService.createUser(createUserDto));
   }
 
-  @Post("login")
   @UseGuards(LocalAuthGuard)
+  @Post("login")
   login(@Res() res: Response) {
     return res.send().status(HttpStatus.OK);
   }

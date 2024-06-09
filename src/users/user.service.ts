@@ -18,7 +18,7 @@ export class UserService implements IUserService {
     });
 
     if (findUser)
-      throw new HttpException("User Alrady is exists", HttpStatus.CONFLICT);
+      throw new HttpException("User Already is exists", HttpStatus.CONFLICT);
 
     const password = await hashPassword(userDetails.password);
     const newUser = this.userRepository.create({ ...userDetails, password });
@@ -26,9 +26,7 @@ export class UserService implements IUserService {
   }
 
   async findUser(findUserParams: FindUserParams): Promise<User> {
-    return await this.userRepository.findOne(findUserParams,{
-      relations:['participant']
-    });
+    return await this.userRepository.findOne(findUserParams);
   }
 
   async saveUser(user:User){

@@ -22,7 +22,6 @@ async function bootstrap() {
       secret: COOKIE_SECRET,
       saveUninitialized: false,
       resave: false,
-      name: "CHAT_APP_SESSION_ID",
       cookie: {
         maxAge: 86400000, //cookie expire 1 day later
       },
