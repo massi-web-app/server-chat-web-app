@@ -33,8 +33,6 @@ export class MessageService implements IMessageService {
         const {creator, recipient} = conversation;
 
 
-        console.log(creator.id,user.id,recipient.id);
-
         if (creator.id !== user.id && recipient.id !== user.id)
             throw new HttpException("Cannot Create Message", HttpStatus.FORBIDDEN);
 
@@ -48,7 +46,10 @@ export class MessageService implements IMessageService {
             author: instanceToPlain(user),
         });
 
-        return await this.messageRepository.save(newMessage);
+        const savedMessage = await this.messageRepository.save(newMessage);
+        conversation.lastMessageSent = savedMessage;
+        await this.conversationRepository.save(conversation);
+        return ;
     }
 
 }
