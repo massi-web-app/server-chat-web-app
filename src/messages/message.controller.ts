@@ -10,12 +10,10 @@ export class MessageController {
 
 
   constructor(@Inject(Services.MESSAGES) private readonly messageService: IMessageService) {
-
   }
 
 
   @Post("")
-
   createMessage(@AuthUser() user: User, @Body() createMessageDto: CreateMessageDto) {
     return this.messageService.createMessage({ ...createMessageDto, user });
   }

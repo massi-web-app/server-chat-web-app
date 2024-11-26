@@ -6,6 +6,5 @@ export interface IUserService {
 
   findUser(findUserParams: FindUserParams): Promise<User>;
 
-
   saveUser(user:User):Promise<User>;
 }

@@ -1,4 +1,13 @@
-import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn
+} from "typeorm";
 import { User } from "./User";
 import { Message } from "./Message";
 
@@ -26,7 +35,7 @@ export class Conversation {
   messages: Message[];
 
 
-  @Column({ name: "created_at" })
+  @CreateDateColumn({ name: "created_at" })
   createdAt: number;
 
   @OneToOne(() => Message)
