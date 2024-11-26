@@ -16,6 +16,7 @@ export class MessageService implements IMessageService {
     ) {
     }
 
+
     async createMessage({user, content, conversationId}: CreateMessageParams): Promise<Message> {
 
         const conversation = await this.conversationRepository.findOne({
@@ -49,7 +50,21 @@ export class MessageService implements IMessageService {
         const savedMessage = await this.messageRepository.save(newMessage);
         conversation.lastMessageSent = savedMessage;
         await this.conversationRepository.save(conversation);
-        return ;
+        return;
+    }
+
+
+    async getMessagesByConversationId(conversationId: number): Promise<Message[]> {
+        return this.messageRepository.find({
+            where: {
+                conversation: {
+                    id: conversationId
+                },
+            },
+            order: {
+                createdAt: 'DESC'
+            }
+        });
     }
 
 }
