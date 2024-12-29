@@ -63,8 +63,9 @@ export class MessageService implements IMessageService {
             },
             order: {
                 createdAt: 'DESC'
-            }
-        });
+            },
+            relations: ['author'],
+         });
     }
 
 }
