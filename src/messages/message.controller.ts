@@ -23,8 +23,6 @@ export class MessageController {
     getMessagesFromConversations(
         @AuthUser() user: User,
         @Param('conversationId') conversationId: number) {
-        console.log(conversationId);
         return this.messageService.getMessagesByConversationId(conversationId);
-
     }
 }
