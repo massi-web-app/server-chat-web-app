@@ -13,7 +13,6 @@ export class UserService implements IUserService {
   ) {}
 
 
-
   async createUser(userDetails: CreateUserDetials) {
     const findUser = await this.userRepository.findOne({
       email: userDetails.email,

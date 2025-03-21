@@ -47,8 +47,7 @@ export class MessageService implements IMessageService {
             author: instanceToPlain(user),
         });
 
-        const savedMessage = await this.messageRepository.save(newMessage);
-        conversation.lastMessageSent = savedMessage;
+        conversation.lastMessageSent = await this.messageRepository.save(newMessage);
         await this.conversationRepository.save(conversation);
         return;
     }
