@@ -6,6 +6,8 @@ import { UsersModule } from "./users/users.module";
 import { PassportModule } from "@nestjs/passport";
 import { ConversationsModule } from './conversation/conversations.module';
 import { MessagesModule } from './messages/messages.module';
+import { GatewayModule } from './gateway/gateway.module';
+import {EventEmitterModule} from '@nestjs/event-emitter'
 import entities from "./utils/typeorm";
 
 
@@ -27,6 +29,8 @@ import entities from "./utils/typeorm";
       entities,
     }),
     MessagesModule,
+    GatewayModule,
+    EventEmitterModule.forRoot()
   ],
   controllers: [],
   providers: [],

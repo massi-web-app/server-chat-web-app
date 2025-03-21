@@ -47,9 +47,10 @@ export class MessageService implements IMessageService {
             author: instanceToPlain(user),
         });
 
-        conversation.lastMessageSent = await this.messageRepository.save(newMessage);
+        const savedMessage = await this.messageRepository.save(newMessage);
+        conversation.lastMessageSent = savedMessage;
         await this.conversationRepository.save(conversation);
-        return;
+        return savedMessage;
     }
 
 
@@ -64,7 +65,7 @@ export class MessageService implements IMessageService {
                 createdAt: 'DESC'
             },
             relations: ['author'],
-         });
+        });
     }
 
 }
