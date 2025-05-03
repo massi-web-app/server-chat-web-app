@@ -4,9 +4,9 @@ import {
     OnGatewayInit,
     SubscribeMessage,
     WebSocketGateway,
-    WebSocketServer
+    WebSocketServer,
 } from '@nestjs/websockets';
-import {Server} from 'socket.io';
+import {Server,Socket} from 'socket.io';
 import {OnEvent} from "@nestjs/event-emitter";
 
 
@@ -16,8 +16,10 @@ import {OnEvent} from "@nestjs/event-emitter";
     }
 })
 export class MessagingGateway implements OnGatewayConnection{
-    handleConnection(client: any, ...args: any[]) {
-        console.log(client);
+    handleConnection(client: Socket, ...args: any[]) {
+        console.log(client.id);
+        client.emit('connected');
+
     }
 
     @WebSocketServer()
